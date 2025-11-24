@@ -1,0 +1,27 @@
+bin/
+*.exe
+*.out
+*.app
+
+build/
+*.o
+*.d
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+.vscode/
+*.code-workspace
+
+Linux / Unix
+
+*~
+.swp
+.fuse_hidden
+
+.dSYM/
+valgrind.log
+callgrind.out.
