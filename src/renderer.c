@@ -29,42 +29,7 @@ void initRenderer(int screenW, int screenH)
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    const char* vertexSrc =
-    "#version 330 core\n"
-    "layout(location = 0) in vec2 aPos;\n"
-    "layout(location = 1) in vec2 aUV;\n"
-    "uniform vec2 uPos;\n"
-    "uniform vec2 uSize;\n"
-    "uniform vec2 uScreen;\n"
-    "uniform float uAngle;\n"
-    "uniform vec2 uAnchor;\n"
-    "out vec2 vUV;\n"
-    "void main()\n"
-    "{\n"
-    "    vec2 localPos = (aPos - uAnchor) * uSize;\n"
-    "    float s = sin(uAngle);\n"
-    "    float c = cos(uAngle);\n"
-    "    mat2 rot = mat2(c, -s, s, c);\n"
-    "    localPos = rot * localPos;\n"
-    "    vec2 finalPos = localPos + uPos;\n"
-    "    float x = finalPos.x / uScreen.x * 2.0 - 1.0;\n"
-    "    float y = finalPos.y / uScreen.y * 2.0 - 1.0;\n"
-    "    y = -y;\n"
-    "    gl_Position = vec4(x, y, 0.0, 1.0);\n"
-    "    vUV = vec2(aUV.x, 1.0 - aUV.y);\n"
-    "}\n";
-
-    const char* fragmentSrc =
-    "#version 330 core\n"
-    "in vec2 vUV;\n"
-    "uniform sampler2D uTex;\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "    FragColor = texture(uTex, vUV);\n"
-    "}\n";
-
-    shaderProgram = loadShaderProgram(vertexSrc, fragmentSrc);
+    shaderProgram = loadShaderProgram("src/assets/shaders/default.vert", "src/assets/shaders/default.frag");
 
     locPos = glGetUniformLocation(shaderProgram, "uPos");
     locSize = glGetUniformLocation(shaderProgram, "uSize");
